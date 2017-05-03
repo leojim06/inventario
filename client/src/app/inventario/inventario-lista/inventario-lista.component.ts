@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, ViewContainerRef, ChangeDetectorRef, NgZone } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Component, OnInit, Input, ViewContainerRef, ChangeDetectorRef } from '@angular/core';
+import { Router } from "@angular/router/";
 
 import { Overlay, overlayConfigFactory } from 'angular2-modal';
 import { Modal, BSModalContext } from 'angular2-modal/plugins/bootstrap';
@@ -16,8 +16,8 @@ import { InventarioFormComponent } from '../inventario-form/inventario-form.comp
 })
 export class InventarioListaComponent implements OnInit {
 
-  private productos: Observable<any>;
-  private total: Observable<number>;
+  private productos: Producto[];
+  private total: number;
 
   constructor(
     private productosService: ProductosService,
@@ -25,24 +25,29 @@ export class InventarioListaComponent implements OnInit {
     private overlay: Overlay,
     private vcRef: ViewContainerRef,
     private changeDetectorRef: ChangeDetectorRef,
-    private ngZone: NgZone) {
+    private router: Router) {
     this.overlay.defaultViewContainer = vcRef;
   }
 
-
   ngOnInit() {
-    this.ngZone.run(() => {
-      this.productos = this.productosService.getAll();
-      this.total = this.productos.map(producto => producto.reduce((total, p) => total + p.total, 0));
-    })
+    this.productosService.getAll().subscribe(
+      (productos) => {
+        this.changeDetectorRef.markForCheck();
+        this.productos = productos;
+        this.total = productos.reduce((total, p) => total + p.total, 0);
+      }
+    );
   }
 
-  openModal() {
-    this.modal.open(InventarioFormComponent, overlayConfigFactory({}, BSModalContext));
-    this.productos = this.productosService.getAll();
+  nuevoProducto(): void {
+    this.router.navigate(['/inventario/nuevo']);
   }
 
-  productoDestroy(producto: Producto): void {
+  editarProducto(producto: Producto): void {
+    this.router.navigate(['/inventario/editar', producto._id]);
+  }
+
+  eliminarProducto(producto: Producto): void {
     this.modal.confirm()
       .size('sm')
       .showClose(false)
@@ -61,8 +66,11 @@ export class InventarioListaComponent implements OnInit {
   private destroy(producto: Producto): void {
     this.productosService.destroy(producto._id).subscribe(
       (result) => {
-        this.productos = this.productos.filter(prod => prod !== producto);
-        this.total = this.productos.map(producto => producto.reduce((total, p) => total + p.total, 0));
+        this.productos.splice(this.productos.indexOf(producto), 1);
+        this.total = 0;
+        this.productos.forEach(prod => {
+          this.total = this.total + prod.total;
+        });
       },
       (error) => { console.error('Error') }
     );

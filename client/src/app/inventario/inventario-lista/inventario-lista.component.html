@@ -4,13 +4,13 @@
       <h3>Listado de productos en inventario</h3>
     </div>
     <div class="col-md-3">
-      <button class="btn btn-success tabla-inventario__titulo_btn-agregar" (click)="openModal()"><span class="glyphicon glyphicon-plus"></span> Agregar nuevo producto</button>
+      <button class="btn btn-success tabla-inventario__titulo_btn-agregar" (click)="nuevoProducto()"><span class="glyphicon glyphicon-plus"></span> Agregar nuevo producto</button>
     </div>
     <br>
   </div>
   <div class="row">
 
-    <div class="col-md-12">
+    <div class="col-md-12" *ngIf="productos">
       <div class="table-responsive">
 
         <table class="table table-hover table-condensed">
@@ -26,14 +26,14 @@
           </thead>
 
           <tbody class="tabla-inventario__body">
-            <tr *ngFor="let producto of productos | async">
+            <tr *ngFor="let producto of productos">
               <td>{{ producto.nombre }}</td>
               <td class="tabla-inventario_alineado-centro">{{ producto.cantidad }}</td>
               <td class="tabla-inventario_alineado-derecha">{{ producto.precio | currency:'COP':true:'2.2-2' }}</td>
               <td class="tabla-inventario_alineado-derecha tabla-inventario_columna-total">{{ producto.total | currency:'COP':true:'2.2-2' }}</td>
               <td class="tabla-inventario_alineado-centro">
-                <button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
-                <button class="btn btn-danger btn-xs" (click)="productoDestroy(producto)"><span class="glyphicon glyphicon-trash"></span> Eliminar</button>
+                <button class="btn btn-primary btn-xs" (click)="editarProducto(producto)" ><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+                <button class="btn btn-danger btn-xs" (click)="eliminarProducto(producto)"><span class="glyphicon glyphicon-trash"></span> Eliminar</button>
               </td>
             </tr>
           </tbody>
@@ -41,7 +41,7 @@
           <tfoot class="tabla-inventario__footer">
             <tr>
               <td colspan="3" class="tabla-inventario_alineado-derecha">Total: </td>
-              <td class="tabla-inventario_alineado-derecha">{{ total | async | currency:'COP':true:'2.2-2' }}</td>
+              <td *ngIf="total" class="tabla-inventario_alineado-derecha">{{ total | currency:'COP':true:'2.2-2' }}</td>
               <td></td>
             </tr>
           </tfoot>

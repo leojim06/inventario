@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from "@angular/router";
 
@@ -6,34 +6,31 @@ import { Producto } from '../shared/models/producto.model';
 import { ProductosService } from '../shared/services/productos.service';
 import { CustomValidators } from '../../shared/validators';
 
-import { DialogRef, ModalComponent, CloseGuard } from 'angular2-modal';
-import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
+// import { DialogRef, ModalComponent, CloseGuard } from 'angular2-modal';
+// import { BSModalContext } from 'angular2-modal/plugins/bootstrap';
 
 @Component({
   selector: 'app-inventario-form',
   templateUrl: './inventario-form.component.html',
   styleUrls: ['./inventario-form.component.css']
 })
-export class InventarioFormComponent implements CloseGuard, OnInit {
+// export class InventarioFormComponent implements CloseGuard, OnInit {
+export class InventarioFormComponent implements OnInit {
 
-  context;
-
-  public username: string;
-  public password: string;
+  private titulo: string = 'Nuevo Producto';
+  private btnText: string = 'Agregar Producto';
 
   private productoForm: FormGroup;
   private formError: { [id: string]: string };
   private validationMessage: { [id: string]: { [id: string]: string } };
-  private producto;
+
+  @Input() producto: Producto;
 
 
   constructor(
-    public dialog: DialogRef<any>,
     private fb: FormBuilder,
     private productosService: ProductosService,
     private router: Router) {
-    this.context = dialog.context; // this is the dialog reference
-    dialog.setCloseGuard(this);
 
     this.formError = {
       'nombre': '',
@@ -57,27 +54,31 @@ export class InventarioFormComponent implements CloseGuard, OnInit {
     }
   }
 
-  onClose() {
-    this.dialog.close(this);
-    this.router.navigateByUrl('/');
-  }
-
   ngOnInit() {
+    if (this.producto) {
+      this.titulo = 'Modificar Producto';
+      this.btnText = 'Modificar';
+    }
     this.initForm();
     this.lookChanges();
   }
 
   private initForm() {
+    let prod: Producto;
+    this.producto ?
+      prod = this.producto :
+      prod = <Producto>{}
+
     this.productoForm = this.fb.group({
-      nombre: ['', Validators.compose([
+      nombre: [prod.nombre, Validators.compose([
         Validators.required,
         Validators.minLength(3)
       ])],
-      cantidad: ['', Validators.compose([
+      cantidad: [prod.cantidad, Validators.compose([
         Validators.required,
         CustomValidators.range([1, 100000])
       ])],
-      precio: ['', Validators.compose([
+      precio: [prod.precio, Validators.compose([
         Validators.required,
         CustomValidators.range([100, 99999999])
       ])]
@@ -114,13 +115,24 @@ export class InventarioFormComponent implements CloseGuard, OnInit {
 
   private onSubmit({ value, valid }: { value: Producto, valid: boolean }) {
     if (valid) {
-      this.producto = { producto: value };
-      this.productosService.create(this.producto).subscribe((result: any) => {
-        this.onClose();
-        // this.router.navigate(['/inventario']);
-      }, error => {
-        console.error('Ha ocurrido un error');
-      });
+      console.log(JSON.stringify(this.producto));
+      if (this.producto) {
+        value._id = this.producto._id;
+        console.log('Entro en update');
+        console.log(JSON.stringify(value));
+
+        this.productosService.update(value).subscribe((result: any) => {
+          this.router.navigate(['/inventario']);
+        }, error => {
+          console.error('Ha ocurrido un error');
+        });
+      } else {
+        this.productosService.create(value).subscribe((result: any) => {
+          this.router.navigate(['/inventario']);
+        }, error => {
+          console.error('Ha ocurrido un error');
+        });
+      }
     }
   }
 

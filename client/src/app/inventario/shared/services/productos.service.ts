@@ -15,7 +15,7 @@ export class ProductosService {
 
   constructor(private http: Http,
     // private ngZone: NgZone
-    ) { }
+  ) { }
 
   private setHeaders(): Headers {
     let headersConfig = {
@@ -52,18 +52,20 @@ export class ProductosService {
   }
 
   create(producto: Producto): Observable<Producto> {
+    let prod = { producto: producto }
     return this.http.post(
       `${environment.api_url}${this.path}`,
-      JSON.stringify(producto),
+      JSON.stringify(prod),
       { headers: this.setHeaders() })
       .catch(this.formatError)
       .map((res: Response) => res.json().producto);
   }
 
   update(producto: Producto): Observable<any> {
+    let prod = { producto: producto};
     return this.http.put(
       `${environment.api_url}${this.path}/${producto._id}`,
-      JSON.stringify(producto),
+      JSON.stringify(prod),
       { headers: this.setHeaders() })
       .catch(this.formatError)
       .map((res: Response) => res.json())

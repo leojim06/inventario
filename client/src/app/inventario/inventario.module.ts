@@ -8,6 +8,8 @@ import { InventarioFormComponent } from './inventario-form/inventario-form.compo
 import { ProductosService } from './shared/services/productos.service';
 
 import { InventarioRoutingModule } from './inventario-routing.module';
+import { InventarioAddComponent } from './inventario-add/inventario-add.component';
+import { InventarioEditComponent } from './inventario-edit/inventario-edit.component';
 
 @NgModule({
   imports: [
@@ -18,7 +20,9 @@ import { InventarioRoutingModule } from './inventario-routing.module';
   declarations: [
     InventarioComponent,
     InventarioListaComponent,
-    InventarioFormComponent
+    InventarioFormComponent,
+    InventarioAddComponent,
+    InventarioEditComponent
   ],
   providers: [
     ProductosService
