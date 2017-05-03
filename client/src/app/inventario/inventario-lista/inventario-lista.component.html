@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="row tabla-inventario__titulo">
+    <div class="col-md-9">
+      <h3>Listado de productos en inventario</h3>
+    </div>
+    <div class="col-md-3">
+      <button class="btn btn-success tabla-inventario__titulo_btn-agregar" (click)="openModal()"><span class="glyphicon glyphicon-plus"></span> Agregar nuevo producto</button>
+    </div>
+    <br>
+  </div>
+  <div class="row">
+
+    <div class="col-md-12">
+      <div class="table-responsive">
+
+        <table class="table table-hover table-condensed">
+
+          <thead class="tabla-inventario__header">
+            <tr>
+              <th class="tabla-inventario_alineado-centro">Producto</th>
+              <th class="tabla-inventario_alineado-centro">Cantidad</th>
+              <th class="tabla-inventario_alineado-centro">Valor unitario</th>
+              <th class="tabla-inventario_alineado-centro">Costo total</th>
+              <th class="tabla-inventario_alineado-centro"></th>
+            </tr>
+          </thead>
+
+          <tbody class="tabla-inventario__body">
+            <tr *ngFor="let producto of productos | async">
+              <td>{{ producto.nombre }}</td>
+              <td class="tabla-inventario_alineado-centro">{{ producto.cantidad }}</td>
+              <td class="tabla-inventario_alineado-derecha">{{ producto.precio | currency:'COP':true:'2.2-2' }}</td>
+              <td class="tabla-inventario_alineado-derecha tabla-inventario_columna-total">{{ producto.total | currency:'COP':true:'2.2-2' }}</td>
+              <td class="tabla-inventario_alineado-centro">
+                <button class="btn btn-primary btn-xs"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+                <button class="btn btn-danger btn-xs" (click)="productoDestroy(producto)"><span class="glyphicon glyphicon-trash"></span> Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+
+          <tfoot class="tabla-inventario__footer">
+            <tr>
+              <td colspan="3" class="tabla-inventario_alineado-derecha">Total: </td>
+              <td class="tabla-inventario_alineado-derecha">{{ total | async | currency:'COP':true:'2.2-2' }}</td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

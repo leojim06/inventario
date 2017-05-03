@@ -1,0 +1,36 @@
+{
+  "name": "inventario",
+  "version": "1.0.0",
+  "description": "Prototipo de inventario para trabajo de grado",
+  "main": "server.js",
+  "scripts": {
+    "start": "nodemon dist/server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "HTML",
+    "CSS",
+    "Javascript",
+    "Node",
+    "Mongo",
+    "Angular"
+  ],
+  "author": "leojim06",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
+    "mongoose": "^4.9.6"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.16.3",
+    "@types/express": "^4.0.35",
+    "@types/mongoose": "^4.7.11",
+    "@types/morgan": "^1.7.32",
+    "@types/node": "^7.0.14",
+    "gulp": "^3.9.1",
+    "gulp-typescript": "^3.1.6",
+    "morgan": "^1.8.1",
+    "typescript": "^2.2.2"
+  }
+}
