@@ -16,7 +16,7 @@ import { InventarioFormComponent } from '../inventario-form/inventario-form.comp
 })
 export class InventarioListaComponent implements OnInit {
 
-  private productos: Producto[];
+  public productos: Producto[];
   private total: number;
 
   constructor(

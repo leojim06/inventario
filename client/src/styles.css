@@ -1,1 +1,46 @@
 /* You can add global styles to this file, and also import other style files */
+
+.tabla__titulo {
+   padding: 0;
+   margin: 0;
+   vertical-align: middle;
+}
+.tabla__titulo_btn-agregar {
+   margin-top: 20px;
+   margin-bottom: 10px;
+}
+.tabla__header {
+   text-transform: uppercase;
+   background-color: #3498DB;
+   color: #F7F9F9;
+   /*align-content: center;*/
+   /*text-align: center;*/
+}
+.tabla__body {
+   background-color: #e6f7ff;
+}
+.tabla__footer {
+   font-size: 1.2em;
+   font-weight: bold;
+   color: #F22859;
+   background-color: #ffe6f0;
+}
+
+.float-derecha {
+   float: right;
+}
+
+.tabla_alineado-derecha {
+   text-align: right;
+}
+.tabla_alineado-centro {
+   text-align: center;
+}
+.tabla_columna-total {
+   color: #006622;
+   background-color: #b3ffcc;
+}
+.tabla_resaltado-total {
+   font-size: 1.2em;
+   color: #F22859;
+}

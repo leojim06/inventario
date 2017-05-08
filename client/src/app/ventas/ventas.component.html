@@ -1,0 +1,21 @@
+<h3>Producto: </h3>
+<div [formGroup]="productoForm">
+  <p-autoComplete formControlName="productoInput" [suggestions]="productosFiltrados" field="nombre" size="60" (onSelect)="productoSeleccionado($event)"
+    placeholder="Buscar producto" (completeMethod)="search($event)" [minLength]="0"></p-autoComplete>
+</div>
+
+<div *ngIf="miProducto" class="alert alert-info">
+  <app-producto-seleccionado-venta [producto]="miProducto" (agregarCantidadVenta)="agregarCantidadVenta($event)"></app-producto-seleccionado-venta>
+</div>
+
+
+<div *ngIf="listaVenta.items.length > 0; then tablaFactura; else mensajeSinDatos"></div>
+<ng-template #tablaFactura>
+  <app-tabla-productos-venta [listaVenta]="listaVenta" (productoEliminado)="productoEliminado($event)"></app-tabla-productos-venta>
+</ng-template>
+<ng-template #mensajeSinDatos>
+  <br/>
+  <div class="alert alert-warning">
+    <p>No hay datos. Agregue nuevos productos con el control superior</p>
+  </div>
+</ng-template>

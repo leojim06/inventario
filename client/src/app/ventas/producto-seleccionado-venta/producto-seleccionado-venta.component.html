@@ -1,0 +1,10 @@
+<div>
+  <form [formGroup]="cantidadForm" class="form-inline">
+    <div class="form-group">
+      <label for="cantidad">{{ producto.nombre }}:</label>
+      <input type="number" value="1" min="1" max="{{ producto.cantidad }}" class="form-control" id="cantidad" formControlName="cantidad">
+      <span>de {{ producto.cantidad }}</span>
+    </div>
+    <button type="button" class="btn btn-success" (click)="agregar()">Agregar</button>
+  </form>
+</div>

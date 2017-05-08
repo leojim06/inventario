@@ -1,43 +1,4 @@
-.tabla-inventario__titulo {
-   padding: 0;
-   margin: 0;
-   vertical-align: middle;
-}
-.tabla-inventario__titulo_btn-agregar {
-   margin-top: 20px;
-   margin-bottom: 10px;
-}
-.tabla-inventario__header {
-   text-transform: uppercase;
-   background-color: #3498DB;
-   color: #F7F9F9;
-   /*align-content: center;*/
-   /*text-align: center;*/
-}
-.tabla-inventario__body {
-   background-color: #e6f7ff;
-}
-.tabla-inventario__footer {
-   font-size: 1.2em;
-   font-weight: bold;
-   color: #F22859;
-   background-color: #ffe6f0;
-}
 
-.tabla-inventario_alineado-derecha {
-   text-align: right;
-}
-.tabla-inventario_alineado-centro {
-   text-align: center;
-}
-.tabla-inventario_columna-total {
-   color: #006622;
-   background-color: #b3ffcc;
-}
-.tabla-inventario_resaltado-total {
-   font-size: 1.2em;
-   color: #F22859;
-}
 
 
 /*#F22859 rosado*/

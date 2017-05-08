@@ -1,4 +1,4 @@
-import { Injectable, NgZone } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Headers, Http, Response } from '@angular/http';
 import { Observable } from 'rxjs/Rx'
 import 'rxjs/add/operator/map';
@@ -13,9 +13,7 @@ import { Producto } from '../models/producto.model';
 export class ProductosService {
   private path: string = '/inventario';
 
-  constructor(private http: Http,
-    // private ngZone: NgZone
-  ) { }
+  constructor(private http: Http) { }
 
   private setHeaders(): Headers {
     let headersConfig = {
@@ -62,7 +60,7 @@ export class ProductosService {
   }
 
   update(producto: Producto): Observable<any> {
-    let prod = { producto: producto};
+    let prod = { producto: producto };
     return this.http.put(
       `${environment.api_url}${this.path}/${producto._id}`,
       JSON.stringify(prod),

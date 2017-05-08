@@ -17,11 +17,13 @@ import { CustomValidators } from '../../shared/validators';
 // export class InventarioFormComponent implements CloseGuard, OnInit {
 export class InventarioFormComponent implements OnInit {
 
-  private titulo: string = 'Nuevo Producto';
-  private btnText: string = 'Agregar Producto';
+  public titulo: string = 'Nuevo Producto';
+  public btnText: string = 'Agregar Producto';
+  private isSubmitin: boolean = false;
+  private isValidForm: boolean = false;
 
-  private productoForm: FormGroup;
-  private formError: { [id: string]: string };
+  public productoForm: FormGroup;
+  public formError: { [id: string]: string };
   private validationMessage: { [id: string]: { [id: string]: string } };
 
   @Input() producto: Producto;
@@ -35,7 +37,7 @@ export class InventarioFormComponent implements OnInit {
     this.formError = {
       'nombre': '',
       'cantidad': '',
-      'precio': ''
+      'precio': '',
     }
 
     this.validationMessage = {
@@ -81,7 +83,8 @@ export class InventarioFormComponent implements OnInit {
       precio: [prod.precio, Validators.compose([
         Validators.required,
         CustomValidators.range([100, 99999999])
-      ])]
+      ])],
+      descripcion: ['']
     });
   }
 
@@ -89,6 +92,9 @@ export class InventarioFormComponent implements OnInit {
     this.productoForm.valueChanges
       .map(value => { return value; })
       .subscribe(data => {
+        if(this.productoForm.valid){
+          this.isValidForm = true;
+        }
         this.onValueChanged(data);
       },
       error => {
@@ -97,6 +103,10 @@ export class InventarioFormComponent implements OnInit {
   }
 
   private onValueChanged(data: any): void {
+
+    // if (this.productoForm.valid) {
+    //   this.isValidForm = true;
+    // }
 
     for (let field in this.formError) {
       if (this.formError.hasOwnProperty(field)) {
@@ -113,14 +123,10 @@ export class InventarioFormComponent implements OnInit {
     }
   }
 
-  private onSubmit({ value, valid }: { value: Producto, valid: boolean }) {
+  public onSubmit({ value, valid }: { value: Producto, valid: boolean }) {
     if (valid) {
-      console.log(JSON.stringify(this.producto));
       if (this.producto) {
         value._id = this.producto._id;
-        console.log('Entro en update');
-        console.log(JSON.stringify(value));
-
         this.productosService.update(value).subscribe((result: any) => {
           this.router.navigate(['/inventario']);
         }, error => {

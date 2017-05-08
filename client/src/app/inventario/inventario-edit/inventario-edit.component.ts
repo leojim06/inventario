@@ -10,11 +10,10 @@ import { Producto } from '../shared/models/producto.model';
   <div *ngIf="producto">
     <app-inventario-form [producto]="producto"></app-inventario-form>
   </div>`,
-  styleUrls: ['./inventario-edit.component.css']
 })
 export class InventarioEditComponent implements OnInit {
 
-  private producto: Producto;
+  public producto: Producto;
 
   constructor(private route: ActivatedRoute,
     private productosService: ProductosService) { }

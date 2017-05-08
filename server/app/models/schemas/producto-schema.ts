@@ -22,12 +22,9 @@ ProductoSchema.pre('save', function (next) {
    next();
 });
 
-ProductoSchema.pre('update', function () {
-   let producto = this._update;
-   if ((producto.$set && producto.$set.cantidad) || (producto.$set && producto.$set.precio)) {
-      let total = producto.$set.cantidad * producto.$set.precio;
-      this.update({}, { total: total });
-   }
+ProductoSchema.pre('findOneAndUpdate', function (next) {
+   this._update.total = this._update.cantidad * this._update.precio
+   next();
 });
 
 export const Productos = <ProductoModel>mongooseConnection.model('Productos', ProductoSchema);

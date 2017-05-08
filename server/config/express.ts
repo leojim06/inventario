@@ -1,6 +1,7 @@
 import * as express from 'express';
 import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
+import * as path from 'path';
 
 import { Routes } from '../app/routes';
 
@@ -16,6 +17,15 @@ class App {
       this.express = express();
       this.setMiddleware();
       this.setRoutes();
+      // this.setSPA();
+   }
+
+   private setSPA(): void {
+      // this.express.use(__dirname + '/public');
+      this.express.use(express.static('../' + __dirname + '/public'));
+      this.express.get('/', (req: express.Request, res: express.Response) => {
+         res.sendFile(path.join(__dirname + '/public/index.html'));
+      });
    }
 
    private setMiddleware(): void {
@@ -34,7 +44,7 @@ class App {
    }
 
    private setRoutes(): void {
-      this.express.get('/', this.renderHelloWorld);
+      // this.express.get('/', this.renderHelloWorld);
       this.express.use(new Routes().routes);
    }
 

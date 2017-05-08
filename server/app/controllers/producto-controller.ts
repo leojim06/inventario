@@ -46,21 +46,21 @@ export class ProductoController {
       try {
          let id: string = req.params.id || '';
          let producto: Producto = <Producto>req.body.producto;
-         Productos.findById(id, (err, result) => {
-            if (result && result != null) {
-               Productos.update(result, producto, (err, result) => {
-                  err || result === null ?
-                     res.status(400).send({ producto: 'No se pudeo actualizar el producto', error: err }) :
-                     res.status(200).send({ producto: result });
-               })
-            }
-         })
+      //    Productos.findById(id, (err, result) => {
+      //       if (result && result != null) {
+      //          Productos.update(result, producto, (err, result) => {
+      //             err || result === null ?
+      //                res.status(400).send({ producto: 'No se pudeo actualizar el producto', error: err }) :
+      //                res.status(200).send({ producto: result });
+      //          })
+      //       }
+      //    })
 
-         // Productos.findByIdAndUpdate(id, producto, (err, result) => {
-         //    err || result === null ?
-         //       res.status(400).send({ producto: 'No se pudeo actualizar el producto', error: err }) :
-         //       res.status(200).send({ producto: result });
-         // });
+         Productos.findByIdAndUpdate(id, producto, (err, result) => {
+            err || result === null ?
+               res.status(400).send({ producto: 'No se pudeo actualizar el producto', error: err }) :
+               res.status(200).send({ producto: result });
+         });
       } catch (error) {
          res.status(500).send({ SERVER_ERROR: error.message });
       }

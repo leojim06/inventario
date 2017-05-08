@@ -1,0 +1,50 @@
+<div>
+  <div class="row tabla__titulo">
+    <div class="col-md-12">
+      <h3>Factura</h3>
+    </div>
+    <br>
+  </div>
+  <div class="row">
+    <div class="col-md-12" *ngIf="listaVenta">
+      <div class="table-responsive">
+
+        <table class="table table-hover table-condensed">
+
+          <thead class="tabla__header">
+            <tr>
+              <th class="tabla_alineado-centro">Producto</th>
+              <th class="tabla_alineado-centro">Cantidad</th>
+              <th class="tabla_alineado-centro">Valor unitario</th>
+              <th class="tabla_alineado-centro">Costo total</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody class="tabla__body">
+            <tr *ngFor="let itemProducto of listaProductos">
+              <td>{{ itemProducto.producto.nombre }}</td>
+              <td class="tabla_alineado-centro">{{ itemProducto.cantVenta }}</td>
+              <td class="tabla_alineado-derecha">{{ itemProducto.producto.precio | currency:'COP':true:'2.2-2' }}</td>
+              <td class="tabla_alineado-derecha tabla_columna-total">{{ itemProducto.total | currency:'COP':true:'2.2-2' }}</td>
+              <td class="tabla_alineado-centro">
+                <button class="btn btn-danger btn-xs" (click)="eliminarProducto(itemProducto)"><span class="glyphicon glyphicon-trash"></span> Eliminar</button>
+              </td>
+            </tr>
+          </tbody>
+
+          <tfoot class="tabla__footer">
+            <tr>
+              <td colspan="3" class="tabla_alineado-derecha">Total: </td>
+              <td class="tabla_alineado-derecha">{{ listaVenta.totalVenta | currency:'COP':true:'2.2-2' }}</td>
+              <td></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+    <div>
+      <button class="btn btn-success" (click)="hacerVenta()" >Facturar</button>
+    </div>
+  </div>
+</div>

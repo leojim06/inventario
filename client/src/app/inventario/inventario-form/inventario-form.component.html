@@ -1,39 +1,51 @@
-<div class="modal-header">
-  <h4 class="modal-title">{{ titulo }}</h4>
+<div>
+  <h3>{{ titulo }}</h3>
 </div>
-<div class="modal-body">
-  <form [formGroup]="productoForm" (ngSubmit)="onSubmit(productoForm)" novalidate autocomplete="off">
-    <div class="modal-body">
-
+<div class="row">
+  <div class="col-md-8">
+    <form class="form-horizontal" [formGroup]="productoForm" (ngSubmit)="onSubmit(productoForm)" novalidate autocomplete="off">
       <div class="form-group" [ngClass]="{ 'has-error': formError.nombre }">
-        <label for="nombre" class="control-label">Producto: </label>
+        <label for="nombre" class="sr-only">Nombre del producto</label>
         <input type="text" class="form-control" id="nombre" placeholder="Nombre del Producto" formControlName="nombre">
         <span class="help-block" *ngIf="formError.nombre">
-            <small>{{ formError.nombre }}</small>
-          </span>
+          <small>{{ formError.nombre }}</small>
+        </span>
       </div>
 
       <div class="form-group" [ngClass]="{ 'has-error': formError.cantidad }">
-        <label for="cantidad" class="control-label">Cantidad: </label>
+        <label for="cantidad" class="sr-only">Cantidad</label>
         <input type="number" min="1" max="100000" class="form-control" id="cantidad" placeholder="Cantidad" formControlName="cantidad">
         <span class="help-block" *ngIf="formError.cantidad">
-            <small>{{ formError.cantidad }}</small>
+          <small>{{ formError.cantidad }}</small>
           </span>
       </div>
 
       <div class="form-group" [ngClass]="{ 'has-error': formError.precio }">
-        <label for="precio" class="control-label">Producto: </label>
-        <input type="number" min="100" max="99999999" class="form-control" id="precio" placeholder="Precio" formControlName="precio">
+        <label for="precio" class="sr-only">Precio (en pesos)</label>
+        <div class="input-group">
+          <div class="input-group-addon">$</div>
+          <input type="number" min="100" max="99999999" class="form-control" id="precio" placeholder="Precio" formControlName="precio">
+          <div class="input-group-addon">.00</div>
+        </div>
         <span class="help-block" *ngIf="formError.precio">
-            <small>{{ formError.precio }}</small>
-          </span>
+          <small>{{ formError.precio }}</small>
+        </span>
       </div>
 
-    </div>
-    <div class="modal-footer">
-      <div>
-        <button type="submit" class="btn btn-primary btn-lg btn-block">{{ btnText }}</button>
+      <div class="form-group">
+        <label for="descripcion" class="sr-only">Descripción del producto</label>
+        <textarea rows="5" class="form-control" id="descripcion" placeholder="Descripción del producto" formControlName="descripcion"></textarea>
+        <span class="help-block" *ngIf="formError.descripcion">
+          <small>{{ formError.descripcion }}</small>
+        </span>
       </div>
-    </div>
-  </form>
+
+      <div>
+        <button [disabled]="productoForm.invalid" type="submit" class="btn btn-primary btn-lg btn-block">{{ btnText }}</button>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-4">
+    <img src="../../../assets/images/T-shirt.jpg" class="img-responsive" alt="T-shirt" class="img-thumbnail">
+  </div>
 </div>

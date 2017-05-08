@@ -1,47 +1,48 @@
-<div class="container">
-  <div class="row tabla-inventario__titulo">
-    <div class="col-md-9">
-      <h3>Listado de productos en inventario</h3>
-    </div>
-    <div class="col-md-3">
-      <button class="btn btn-success tabla-inventario__titulo_btn-agregar" (click)="nuevoProducto()"><span class="glyphicon glyphicon-plus"></span> Agregar nuevo producto</button>
-    </div>
-    <br>
+<div class="row tabla__titulo">
+  <div class="col-md-9">
+    <h3>Listado de productos en inventario</h3>
   </div>
-  <div class="row">
+  <div class="col-md-3">
+    <button class="btn btn-success tabla__titulo_btn-agregar" (click)="nuevoProducto()"><span class="glyphicon glyphicon-plus"></span> Agregar nuevo producto</button>
+  </div>
+  <br>
+</div>
 
-    <div class="col-md-12" *ngIf="productos">
+<div <div *ngIf="productos; then tablaProductos; else mensajeSinDatos"></div>
+<ng-template #tablaProductos>
+  <div class="row">
+    <div class="col-md-12">
       <div class="table-responsive">
 
         <table class="table table-hover table-condensed">
 
-          <thead class="tabla-inventario__header">
+          <thead class="tabla__header">
             <tr>
-              <th class="tabla-inventario_alineado-centro">Producto</th>
-              <th class="tabla-inventario_alineado-centro">Cantidad</th>
-              <th class="tabla-inventario_alineado-centro">Valor unitario</th>
-              <th class="tabla-inventario_alineado-centro">Costo total</th>
-              <th class="tabla-inventario_alineado-centro"></th>
+              <th class="tabla_alineado-centro">Producto</th>
+              <th class="tabla_alineado-centro">Cantidad</th>
+              <th class="tabla_alineado-centro">Valor unitario</th>
+              <th class="tabla_alineado-centro">Costo total</th>
+              <th class="tabla_alineado-centro"><span class="glyphicon glyphicon-cog"></span></th>
             </tr>
           </thead>
 
           <tbody class="tabla-inventario__body">
             <tr *ngFor="let producto of productos">
               <td>{{ producto.nombre }}</td>
-              <td class="tabla-inventario_alineado-centro">{{ producto.cantidad }}</td>
-              <td class="tabla-inventario_alineado-derecha">{{ producto.precio | currency:'COP':true:'2.2-2' }}</td>
-              <td class="tabla-inventario_alineado-derecha tabla-inventario_columna-total">{{ producto.total | currency:'COP':true:'2.2-2' }}</td>
-              <td class="tabla-inventario_alineado-centro">
-                <button class="btn btn-primary btn-xs" (click)="editarProducto(producto)" ><span class="glyphicon glyphicon-pencil"></span> Editar</button>
+              <td class="tabla_alineado-centro">{{ producto.cantidad }}</td>
+              <td class="tabla_alineado-derecha">{{ producto.precio | currency:'COP':true:'2.2-2' }}</td>
+              <td class="tabla_alineado-derecha tabla_columna-total">{{ producto.total | currency:'COP':true:'2.2-2' }}</td>
+              <td class="tabla_alineado-centro">
+                <button class="btn btn-primary btn-xs" (click)="editarProducto(producto)"><span class="glyphicon glyphicon-pencil"></span> Editar</button>
                 <button class="btn btn-danger btn-xs" (click)="eliminarProducto(producto)"><span class="glyphicon glyphicon-trash"></span> Eliminar</button>
               </td>
             </tr>
           </tbody>
 
-          <tfoot class="tabla-inventario__footer">
+          <tfoot class="tabla__footer">
             <tr>
-              <td colspan="3" class="tabla-inventario_alineado-derecha">Total: </td>
-              <td *ngIf="total" class="tabla-inventario_alineado-derecha">{{ total | currency:'COP':true:'2.2-2' }}</td>
+              <td colspan="3" class="tabla_alineado-derecha">Total: </td>
+              <td *ngIf="total" class="tabla_alineado-derecha">{{ total | currency:'COP':true:'2.2-2' }}</td>
               <td></td>
             </tr>
           </tfoot>
@@ -49,4 +50,9 @@
       </div>
     </div>
   </div>
-</div>
+</ng-template>
+<ng-template #mensajeSinDatos>
+  <div class="alert alert-warning">
+    <p>No hay datos. Agregue nuevos productos con el boton superior</p>
+  </div>
+</ng-template>
