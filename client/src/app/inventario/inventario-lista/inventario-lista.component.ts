@@ -57,7 +57,7 @@ export class InventarioListaComponent implements OnInit {
       .okBtn('Eliminar')
       .cancelBtn('Cancelar')
       .open()
-      .catch((err: any) => { console.log('Error: ' + err) })
+      .catch((err: any) => { })
       .then((dialog: any) => { return dialog.result })
       .then((result: any) => { this.destroy(producto) })
       .catch((err: any) => { this.cancel() });
@@ -72,12 +72,12 @@ export class InventarioListaComponent implements OnInit {
           this.total = this.total + prod.total;
         });
       },
-      (error) => { console.error('Error') }
+      (error) => { }
     );
   }
 
   private cancel(): void {
-    console.log('Eliminación cancelada')
+    
   }
 
 }

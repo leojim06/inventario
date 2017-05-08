@@ -26,9 +26,8 @@ export class VentasComponent implements OnInit {
     this.productosService.getAll().subscribe(
       (productos: Producto[]) => {
         this.productos = productos.filter((producto: Producto) => producto.cantidad > 0)
-        // this.productos = productos
       },
-      (error: any) => console.log(error)
+      (error: any) => {}
     );
     this.productoForm = new FormGroup({
       productoInput: new FormControl()
@@ -54,7 +53,6 @@ export class VentasComponent implements OnInit {
 
   agregarCantidadVenta(cantidad) {
     let miNuevoItem: ItemVenta = new ItemVenta(this.miProducto, cantidad);
-    console.log(miNuevoItem);
     this.listaVenta.items.push(miNuevoItem);
     this.listaVenta.totalVenta = this.listaVenta.totalVenta + (this.miProducto.precio * cantidad);
     this.productoForm.reset();

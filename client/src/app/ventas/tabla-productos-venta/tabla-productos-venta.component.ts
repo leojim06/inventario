@@ -34,8 +34,6 @@ export class TablaProductosVentaComponent implements OnInit {
     this.listaVenta.vendedor = '<Anonymous>';
     this.ventasService.create(this.listaVenta).subscribe(
       (result) => this.router.navigate(['/inventario']),
-      (error) => console.error({ error: 'Ha ocurrido un error', msg: error })
-    )
+      (error) => { })
   }
-
 }

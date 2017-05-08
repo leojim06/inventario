@@ -97,9 +97,7 @@ export class InventarioFormComponent implements OnInit {
         }
         this.onValueChanged(data);
       },
-      error => {
-        console.error(`error: ${error}`);
-      });
+      error => {});
   }
 
   private onValueChanged(data: any): void {
@@ -129,15 +127,11 @@ export class InventarioFormComponent implements OnInit {
         value._id = this.producto._id;
         this.productosService.update(value).subscribe((result: any) => {
           this.router.navigate(['/inventario']);
-        }, error => {
-          console.error('Ha ocurrido un error');
-        });
+        }, error => {});
       } else {
         this.productosService.create(value).subscribe((result: any) => {
           this.router.navigate(['/inventario']);
-        }, error => {
-          console.error('Ha ocurrido un error');
-        });
+        }, error => {});
       }
     }
   }
