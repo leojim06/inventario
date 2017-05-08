@@ -1,7 +1,7 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
 var express = require("express");
-var logger = require("morgan");
+// import * as logger from 'morgan';
 var bodyParser = require("body-parser");
 var path = require("path");
 var routes_1 = require("../app/routes");
@@ -27,9 +27,9 @@ var App = (function () {
     };
     App.prototype.setMiddleware = function () {
         // Establecer el logger solo si el entorno es de desarrollo
-        if (this.express.get('env') === 'development') {
-            this.express.use(logger('dev'));
-        }
+        // if (this.express.get('env') === 'development') {
+        //    this.express.use(logger('dev'));
+        // }
         this.express.use(bodyParser.json());
         this.express.use(bodyParser.urlencoded({ extended: true }));
         this.express.use(function (req, res, next) {

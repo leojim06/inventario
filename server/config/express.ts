@@ -1,5 +1,5 @@
 import * as express from 'express';
-import * as logger from 'morgan';
+// import * as logger from 'morgan';
 import * as bodyParser from 'body-parser';
 import * as path from 'path';
 
@@ -30,9 +30,9 @@ class App {
 
    private setMiddleware(): void {
       // Establecer el logger solo si el entorno es de desarrollo
-      if (this.express.get('env') === 'development') {
-         this.express.use(logger('dev'));
-      }
+      // if (this.express.get('env') === 'development') {
+      //    this.express.use(logger('dev'));
+      // }
       this.express.use(bodyParser.json());
       this.express.use(bodyParser.urlencoded({ extended: true }));
       this.express.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
