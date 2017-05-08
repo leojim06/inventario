@@ -4,7 +4,7 @@
   "description": "Prototipo de inventario para trabajo de grado",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon dist/server.js",
+    "start": "node dist/server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
